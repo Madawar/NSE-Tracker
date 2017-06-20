@@ -16,6 +16,12 @@
         | {{$stock->stock}} | {{$stock->value}} = {{$stock->value*$stock->stockNo}} |  Bought At: {{$stock->origVal}}= {{$stock->value*$stock->stockNo}}
     @endforeach
 
+    # Drop this Stocks they are past your stop order
+    @foreach($alertDropStocks as $stock)
+        | {{$stock->stock}} | {{$stock->value}} = {{$stock->value*$stock->stockNo}} |  Bought At: {{$stock->origVal}}= {{$stock->value*$stock->stockNo}}
+    @endforeach
+
+
 
     The body of your message.
 

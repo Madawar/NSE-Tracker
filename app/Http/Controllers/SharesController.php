@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 
-class StockController extends Controller
+class SharesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +15,16 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = DB::table('active_stocks')->get();
+        $stocks = DB::table('stock_tracking')->where('date', '>', Carbon::today())->orderBy('value')->get();
         $stocks = $stocks->map(function ($item, $key) {
-            $temp = DB::table('stock_tracking')->where('date', '>', Carbon::today())->where('stock',$item->stock)->first();
-            $item->currentValue = $temp->value;
-            $item->boughtValue = $item->value * $item->stockNo;
-            $item->currentValue = $item->currentValue * $item->stockNo;
+            $previous = DB::table('stock_tracking')->where('date', '<', Carbon::today())->where('stock', $item->stock)->get();
+            $item->max = $previous->max('value');
+            $item->min = $previous->min('value');
+            $item->avg = $previous->avg('value');
             return $item;
         });
-        return view('active_stocks')->with(compact('stocks'));
+
+        return view('allshares')->with(compact('stocks'));
     }
 
     /**
@@ -33,14 +34,7 @@ class StockController extends Controller
      */
     public function create()
     {
-        $stocks = DB::table('stock_tracking')->where('date', '>', Carbon::today())->get();
-        $x = [];
-        foreach ($stocks as $stock) {
-            $x[$stock->stock] = $stock->stock;
-        }
-        $stocks = $x;
-
-        return view('active_stock')->with(compact('stocks'));
+        //
     }
 
     /**
@@ -51,10 +45,7 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['date'] = Carbon::today();
-        DB::table('active_stocks')->insert(array_except($data, '_token'));
-        return redirect()->action('StockController@index');
+        //
     }
 
     /**
@@ -99,7 +90,6 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('active_stocks')->destroy($id);
-        return redirect()->action('StockController@index');
+        //
     }
 }

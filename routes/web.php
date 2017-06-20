@@ -14,9 +14,9 @@ use Carbon\Carbon;
 
 
 Route::resource('stock', 'StockController');
+Route::resource('share', 'SharesController');
 Route::get('/', function () {
 
 
-
-    return view('welcome');
+    return redirect()->action('SharesController@index');
 });

@@ -57,6 +57,7 @@ class SendAlerts extends Command
         $alertBuyStocks = array();
         $alertRisingStocks = array();
         $alertTrackingStocks = array();
+        $alertDropStocks = array();
         foreach ($stocks as $stock) {
 
             $previous = DB::table('stock_tracking')->where('date', '<', Carbon::today())->where('stock', $stock->stock)->get();
@@ -73,6 +74,10 @@ class SendAlerts extends Command
             }
 
             $isTracked = DB::table('active_stocks')->where('stock', $stock->stock)->first();
+            if($stock->value <= $isTracked->stopOrder){
+                array_push($alertDropStocks, $stock);
+            }
+
             if (count($isTracked) > 0) {
                 $stock->origVal = $isTracked->value;
                 $stock->stockNo = $isTracked->stockNo;
