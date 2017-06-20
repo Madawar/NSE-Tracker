@@ -16,11 +16,12 @@ class ShareAlerts extends Mailable
      *
      * @return void
      */
-    public function __construct($alertRisingStocks,$alertBuyStocks,$alertTrackingStocks)
+    public function __construct($alertRisingStocks,$alertBuyStocks,$alertTrackingStocks,$alertDropStocks)
     {
         $this->alertBuyStocks = $alertBuyStocks;
         $this->alertRisingStocks = $alertRisingStocks;
         $this->alertTrackingStocks = $alertTrackingStocks;
+        $this->alertDropStocks = $alertDropStocks;
     }
 
     /**
@@ -35,6 +36,7 @@ class ShareAlerts extends Mailable
                 'alertBuyStocks' => $this->alertBuyStocks,
                 'alertRisingStocks' => $this->alertRisingStocks,
                 'alertTrackingStocks' => $this->alertTrackingStocks,
+                'alertDropStocks'=>$this->alertDropStocks
             ]);;
     }
 }

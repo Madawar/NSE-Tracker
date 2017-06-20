@@ -87,7 +87,7 @@ class SendAlerts extends Command
 
         }
         Mail::to('dwanyoike@codedcell.com')
-            ->send(new ShareAlerts($alertRisingStocks, $alertBuyStocks, $alertTrackingStocks));
+            ->send(new ShareAlerts($alertRisingStocks, $alertBuyStocks, $alertTrackingStocks,$alertDropStocks));
         var_dump($alertRisingStocks);
         var_dump($alertBuyStocks);
         var_dump($alertTrackingStocks);
