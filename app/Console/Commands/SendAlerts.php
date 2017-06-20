@@ -48,6 +48,7 @@ class SendAlerts extends Command
                 $table->increments('id');
                 $table->string('stock');
                 $table->date('date');
+                $table->double('stockNo');
                 $table->double('stopOrder');
                 $table->double('value');
             });
@@ -74,6 +75,7 @@ class SendAlerts extends Command
             $isTracked = DB::table('active_stocks')->where('stock', $stock->stock)->first();
             if (count($isTracked) > 0) {
                 $stock->origVal = $isTracked->value;
+                $stock->stockNo = $isTracked->stockNo;
                 array_push($alertTrackingStocks, $stock);
             }
 

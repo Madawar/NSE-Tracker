@@ -6,6 +6,7 @@
             <th>#</th>
             <th>Stock</th>
             <th>Value</th>
+            <th>Shares</th>
             <th>Date</th>
             <th>Stop Order</th>
 
@@ -19,6 +20,7 @@
                 <th scope="row">{{$i}}</th>
                 <td>{{ucwords($stock->stock)}}</td>
                 <td>{{ucwords($stock->value)}}</td>
+                <td>{{ucwords($stock->stockNo)}}</td>
                 <td>{{ucwords($stock->date)}}</td>
                 <td>{{ucwords($stock->stopOrder)}}</td>
                 <td>
