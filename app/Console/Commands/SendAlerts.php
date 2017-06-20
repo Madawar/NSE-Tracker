@@ -74,11 +74,12 @@ class SendAlerts extends Command
             }
 
             $isTracked = DB::table('active_stocks')->where('stock', $stock->stock)->first();
-            if($stock->value <= $isTracked->stopOrder){
-                array_push($alertDropStocks, $stock);
-            }
+
 
             if (count($isTracked) > 0) {
+                if($stock->value < $isTracked->stopOrder){
+                    array_push($alertDropStocks, $stock);
+                }
                 $stock->origVal = $isTracked->value;
                 $stock->stockNo = $isTracked->stockNo;
                 array_push($alertTrackingStocks, $stock);
