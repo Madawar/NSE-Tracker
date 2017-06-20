@@ -13,7 +13,7 @@
 
     # Stocks You Own
     @foreach($alertTrackingStocks as $stock)
-        | {{$stock->stock}} | {{$stock->value}} | <b> Bought At: {{number_format($stock->origVal)}}</b>
+        | {{$stock->stock}} | {{$stock->value}} |  Bought At: {{$stock->origVal}}
     @endforeach
 
 
