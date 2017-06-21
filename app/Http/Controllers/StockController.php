@@ -19,7 +19,7 @@ class StockController extends Controller
         $stocks = DB::table('active_stocks')->get();
         $stocks = $stocks->map(function ($item, $key) {
             $temp = DB::table('stock_tracking')->where('date', '=', Carbon::today()->format('Y-m-d'))->where('stock', $item->stock)->first();
-            $item->currentValue = $temp->value;
+            $item->currentBid = $temp->value;
             $item->boughtValue = $item->value * $item->stockNo;
             $item->currentValue = $item->currentValue * $item->stockNo;
             return $item;
