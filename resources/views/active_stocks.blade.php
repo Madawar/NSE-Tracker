@@ -27,9 +27,9 @@
             <tr class="">
                 <th scope="row">{{$i}}</th>
                 <td>{{ucwords($stock->stock)}}</td>
-                <td>{{$stock->value}} = KES {{$stock->value * $stock->stockNo}} </td>
+                <td>{{$stock->value}} = KES {{$stock->boughtValue}} </td>
                 <td>{{ucwords($stock->stockNo)}}</td>
-                <td>{{ucwords($stock->currentValue)}} = KES {{$stock->currentValue * $stock->stockNo}}</td>
+                <td>{{ucwords($stock->currentValue)}} = KES {{$stock->currentValue}}</td>
                 <td>KES {{($stock->currentValue * $stock->stockNo)-($stock->value * $stock->stockNo)}}</td>
                 <td>{{ucwords($stock->date)}}</td>
                 <td>{{ucwords($stock->stopOrder)}}</td>
