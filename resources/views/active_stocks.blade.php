@@ -30,7 +30,7 @@
                 <td>{{$stock->value}} = KES {{$stock->boughtValue}} </td>
                 <td>{{ucwords($stock->stockNo)}}</td>
                 <td>{{ucwords($stock->currentValue)}} = KES {{$stock->currentValue}}</td>
-                <td>KES {{($stock->currentValue * $stock->stockNo)-($stock->value * $stock->stockNo)}}</td>
+                <td>KES {{($stock->currentValue)-($stock->boughtValue)}}</td>
                 <td>{{ucwords($stock->date)}}</td>
                 <td>{{ucwords($stock->stopOrder)}}</td>
                 <td>
