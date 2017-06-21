@@ -43,7 +43,7 @@ class SendAlerts extends Command
      */
     public function handle()
     {
-        $stocks = DB::table('stock_tracking')->where('date', '>=', Carbon::today())->get();
+        $stocks = DB::table('stock_tracking')->where('date', '>=', Carbon::today()->format('Y-m-d'))->get();
         $alertBuyStocks = array();
         $alertRisingStocks = array();
         $alertTrackingStocks = array();
