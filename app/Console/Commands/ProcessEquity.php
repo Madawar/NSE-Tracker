@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\StockTracking;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+
 class ProcessEquity extends Command
 {
     /**
@@ -40,16 +42,7 @@ class ProcessEquity extends Command
      */
     public function handle()
     {
-        if (!Schema::hasTable('stock_tracking')) {
-            Schema::create('stock_tracking', function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('stock');
-                $table->double('value');
-                $table->date('date');
-            });
-        }
-
-        $stocks = DB::table('stocks')->where('date', '>', Carbon::today())->get();
+        $stocks = DB::table('stocks')->where('date', '=', Carbon::today()->format('Y-m-d'))->get();
         $stocks = $stocks->map(function ($item, $key) {
             //$item->orig_stock = $item->stock;
             $item->stock = explode('Ltd', $item->stock)[0];
@@ -69,7 +62,7 @@ class ProcessEquity extends Command
             return $item;
         });
         foreach ($stocks as $stock) {
-            DB::table('stock_tracking')->insert(
+            StockTracking::create(
                 array_except((array)$stock, 'id')
             );
         }

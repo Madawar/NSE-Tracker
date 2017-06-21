@@ -43,16 +43,6 @@ class SendAlerts extends Command
      */
     public function handle()
     {
-        if (!Schema::hasTable('active_stocks')) {
-            Schema::create('active_stocks', function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('stock');
-                $table->date('date');
-                $table->double('stockNo');
-                $table->double('stopOrder');
-                $table->double('value');
-            });
-        }
         $stocks = DB::table('stock_tracking')->where('date', '>', Carbon::today())->get();
         $alertBuyStocks = array();
         $alertRisingStocks = array();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\StockTracking;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ class SharesController extends Controller
      */
     public function index()
     {
-        $stocks = DB::table('stock_tracking')->where('date', '>', Carbon::today())->orderBy('value')->get();
+        $stocks = DB::table('stock_tracking')->select('stock', 'value')->where('date', '>=', Carbon::today()->format('Y-m-d'))->distinct()->orderBy('value')->get();
         $stocks = $stocks->map(function ($item, $key) {
             $previous = DB::table('stock_tracking')->where('date', '<', Carbon::today())->where('stock', $item->stock)->get();
             $item->max = $previous->max('value');
@@ -54,9 +55,14 @@ class SharesController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $stocks = StockTracking::where('stock', $id)->groupBy('date', 'stock')->get();
+        $stocks = $stocks->map(function ($item, $key) {
+            $item->date = Carbon::parse($item->date)->format('Y-m-d');
+            return $item;
+        });
+        return view('graph')->with(compact('stocks'));
     }
 
     /**

@@ -44,13 +44,13 @@ for row in rows:
     if len(cols) == 4:
         cols = cols[:3 - 1]
         cols.append(datetime.datetime.now())
-        dbtable.insert(dict(stock=cols[0], value=cols[1], date=cols[2]))
+        dbtable.insert(dict(stock=cols[0], value=float(cols[1].replace(',','')), date=cols[2]))
         print(cols)
 
 print(dbtable.all())
-myfile = open('stocks.csv', 'wb')
-wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+#myfile = open('stocks.csv', 'wb')
+#wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
 
 for user in dbtable.all():
     print(user)
-    wr.writerow(user.values())
+    #wr.writerow(user.values())

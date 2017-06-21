@@ -14,6 +14,7 @@
             <th>Max</th>
             <th>Min</th>
             <th>Avg</th>
+            <th>View Trend</th>
 
 
         </tr>
@@ -29,6 +30,8 @@
                 <td>{{$stock->max}}  </td>
                 <td>{{$stock->min}}  </td>
                 <td>{{$stock->avg}}  </td>
+                <td><a href="{{action('SharesController@show',$stock->stock)}}" class="btn btn-block btn-flat bg-green"><i
+                                class="fa fa-line-chart"></i></a></td>
 
 
                 <?php $i++; ?>

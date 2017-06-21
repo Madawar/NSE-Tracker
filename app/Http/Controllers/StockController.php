@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActiveStock;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -17,7 +18,7 @@ class StockController extends Controller
     {
         $stocks = DB::table('active_stocks')->get();
         $stocks = $stocks->map(function ($item, $key) {
-            $temp = DB::table('stock_tracking')->where('date', '>', Carbon::today())->where('stock',$item->stock)->first();
+            $temp = DB::table('stock_tracking')->where('date', '=', Carbon::today()->format('Y-m-d'))->where('stock', $item->stock)->first();
             $item->currentValue = $temp->value;
             $item->boughtValue = $item->value * $item->stockNo;
             $item->currentValue = $item->currentValue * $item->stockNo;
@@ -33,7 +34,7 @@ class StockController extends Controller
      */
     public function create()
     {
-        $stocks = DB::table('stock_tracking')->where('date', '>', Carbon::today())->get();
+        $stocks = DB::table('stock_tracking')->where('date', '>=', Carbon::today()->format('Y-m-d'))->get();
         $x = [];
         foreach ($stocks as $stock) {
             $x[$stock->stock] = $stock->stock;
@@ -53,7 +54,7 @@ class StockController extends Controller
     {
         $data = $request->all();
         $data['date'] = Carbon::today();
-        DB::table('active_stocks')->insert(array_except($data, '_token'));
+        ActiveStock::create(array_except($data, '_token'));
         return redirect()->action('StockController@index');
     }
 
@@ -88,7 +89,8 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        ActiveStock::find($id)->update($request->all());
+        return redirect()->action('StockController@index');
     }
 
     /**

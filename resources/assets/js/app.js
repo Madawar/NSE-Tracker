@@ -8,6 +8,11 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+// chartjs package
+require('chart.js');
+// vue-charts package
+require('hchs-vue-charts');
+Vue.use(VueCharts);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -17,6 +22,3 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
