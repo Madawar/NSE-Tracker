@@ -23,9 +23,18 @@
 
         <?php $i = 1; ?>
         @foreach ($stocks as $stock)
-            <tr class="">
+            <tr class="{{$stock->color}} d">
                 <th scope="row">{{$i}}</th>
-                <td>{{ucwords($stock->stock)}}</td>
+                <td>
+                    {{ucwords($stock->stock)}}
+                    @if($stock->color == "danger")
+                        ({{number_format($stock->percentage)}}% Below Average)
+                    @endif
+
+                    @if($stock->color == "success")
+                        ({{number_format($stock->percentage)}}% above Average)
+                    @endif
+                </td>
                 <td>{{$stock->value}}  </td>
                 <td>{{$stock->max}}  </td>
                 <td>{{$stock->min}}  </td>

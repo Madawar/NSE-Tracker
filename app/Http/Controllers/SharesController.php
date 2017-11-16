@@ -22,9 +22,20 @@ class SharesController extends Controller
             $item->max = $previous->max('value');
             $item->min = $previous->min('value');
             $item->avg = $previous->avg('value');
+            if ($item->value < $item->avg) {
+                $item->color = 'danger';
+                $item->percentage = 100-($item->value / $item->avg) * 100;
+            } elseif($item->value > $item->avg) {
+                $item->color = 'success';
+                $item->percentage = 100-($item->value / $item->avg) * 100;
+            }else{
+                $item->color = "";
+                $item->percentage = 0;
+            }
+
             return $item;
         });
-
+        $stocks = $stocks->sortBy('percentage');
         return view('allshares')->with(compact('stocks'));
     }
 
