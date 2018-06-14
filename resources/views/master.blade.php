@@ -1,70 +1,71 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="{{url('css/app.css')}}" type="text/css" media="all"/>
-    <link rel="stylesheet" href="{{url('css/AdminLTE.css')}}" type="text/css" media="all"/>
-    <link rel="stylesheet" href="{{url('css/font-awesome.css')}}" type="text/css" media="all"/>
-    <link rel="shortcut icon" href="{{url('favicon.ico')}}" type="image/x-icon"/>
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Ubuntu|Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic'
-          rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="en"/>
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#4188c9">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <link rel="icon" href="{{url('favicon.ico')}}" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+    <!-- Generated: 2018-03-21 10:23:11 +0100 -->
+    <title>@yield('title')</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
 
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+    <!-- Dashboard Core -->
+    <link rel="stylesheet" href="{{url('css/bundle.css')}}" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{url('css/dashboard.css')}}" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{url('css/picker.css')}}" type="text/css" media="all"/>
 
-    <style>
-        .container {
-            background: white;
-            padding: 10px;
-            min-height: 500px;
-            box-shadow: -1px -1px 15px 1px rgba(207, 205, 207, 1) !important;
-        }
-    </style>
-
-
-    <title>
-        @section('title')@show
-    </title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="">
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">NSE Stock Tracker</a>
+<div class="page">
+    <div class="page-main">
+        <div class="page-content">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                         <h3 class="card-title">List Of Stocks (Click on a row to view Trend)</h3>
+                    </div>
+
+                        @yield('content')
+
+
+                </div>
+            </div>
+
         </div>
+    </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="{{action('StockController@index')}}">View Bought Stocks</a></li>
-                <li><a href="{{action('SharesController@index')}}">View All Shares</a></li>
-                <li><a href="{{action('StockController@create')}}">Record Bought Stock</a></li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<div class="container">
-    @yield('content')
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-auto ml-auto">
+                    <div class="row align-items-center">
+
+
+                    </div>
+                </div>
+                <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                    Copyright © {{\Carbon\Carbon::today()->format('Y')}}
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
-
-</body>
 <script type="text/javascript" src="{{url('js/app.js')}}"></script>
-
-@section('jquery')
-
-@show
-
-
+<script type="text/javascript" src="{{url('js/plugins.js')}}"></script>
+@yield('jquery')
+</body>
 </html>

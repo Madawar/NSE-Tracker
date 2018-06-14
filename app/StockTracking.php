@@ -10,4 +10,5 @@ class StockTracking extends Model
     protected $guarded = [
 
     ];
+
 }
